@@ -122,12 +122,14 @@ async def on_message(message):
     # If this message was sent on the game channel...
     if is_to_game is True:
 
-        # Build a special Embed response for message sent on the game channel
+        # Build a special Embed response for messages sent on the game channel
 
         channel = message.channel
 
         embed = discord.Embed(title=f"Game BOT on Channel #{message.channel.name}",
                               color=discord.Color.blue())
+
+        embed.set_author(name=bot.user.name, icon_url=bot.user.avatar_url)
 
         embed.set_thumbnail(url="https://images.megapixl.com/2070/20707154.jpg")
 
