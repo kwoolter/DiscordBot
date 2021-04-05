@@ -143,6 +143,7 @@ async def admin(ctx, admin_cmd='help'):
 
 @bot.command(name='server', help='Information about this server')
 @commands.has_role('admin')
+@commands.cooldown(rate=1,per=10,type=commands.BucketType.channel)
 async def fetchServerInfo(ctx):
     guild = ctx.guild
 
