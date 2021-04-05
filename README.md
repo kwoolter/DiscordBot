@@ -4,13 +4,15 @@ Create a basic Discord bot using `discord.py` based on the realpython tutorial.
 ## Features
 * `on_ready` - the bot starts up
 * `on_message` - handling message events
-* Command events
+    * Different behaviour based on the channel that the message was received on
+    * Different behaviour if the Bot was mentioned in the message
+* Command events - process user-defined commands
     * Permissions using `commands.has_role()`
     * Cooldowns using `commands.cooldown()`
 * `Embed` - nicely formatted responses from the bot
 * Error Handling
     * `on_error`
-    * `on_command_error` 
+    * `on_command_error` - an error processing a command
  
 ## Dependencies
 * `discord.py`
@@ -29,3 +31,4 @@ DISCORD_CHANNEL_GAME=game
 # References
 * https://realpython.com/how-to-make-a-discord-bot-python/ - tutorial for setting up a bot
 * https://discordpy.readthedocs.io/en/latest/index.html - `disord.py` API reference guide
+* https://discord.com/developers/applications - Discord developers' portal
