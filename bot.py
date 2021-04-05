@@ -61,6 +61,21 @@ async def on_ready():
 
                 await channel.send(embed=embed)
 
+@bot.event
+async def on_user_update(before, after):
+    print(f'{before} -> {after}')
+
+@bot.event
+async def on_member_update(before, after):
+    """
+    Process event when a memeber of the server updates themselves
+    :param before: before Member
+    :param after:  after Member
+    """
+    print(f'{before} -> {after}')
+
+    if before.status != after.status:
+        print(f'Member {after.name} status is now {after.status}')
 
 @bot.event
 async def on_message(message):

@@ -6,6 +6,7 @@ Create a basic Discord bot using `discord.py` based on the realpython tutorial.
 * `on_message` - handling message events
     * Different behaviour based on the channel that the message was received on
     * Different behaviour if the Bot was mentioned in the message
+* `on_member_update` - process a member of the server changing status e.g. going offline
 * Command events - process user-defined commands
     * Permissions using `commands.has_role()`
     * Cooldowns using `commands.cooldown()`
