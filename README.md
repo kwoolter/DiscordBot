@@ -7,6 +7,7 @@ Create a basic Discord bot using `discord.py` based on the realpython tutorial.
 * Command events
     * Permissions using `commands.has_role()`
     * Cooldowns using `commands.cooldown()`
+* `Embed` - nicely formatted responses from the bot
 * Error Handling
     * `on_error`
     * `on_command_error` 
