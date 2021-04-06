@@ -4,7 +4,7 @@ import random
 from dotenv import load_dotenv
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 
 # Load in all of the environment variables that we are going to use
@@ -17,12 +17,14 @@ CHANNEL_GAME = os.getenv('DISCORD_CHANNEL_GAME')
 # Create a Bot instance
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='!', loop=None, fetch_offline_members=True, intents=intents)
+game_channel = None
 
 @bot.event
 async def on_ready():
     """
     Event when the bot is started and ready to go!
     """
+    global game_channel
 
     # Change the bot's status
     await bot.change_presence(activity=discord.Game('My new BOT game'))
@@ -47,6 +49,8 @@ async def on_ready():
 
             # If this is the configured game channel then add special Embed message
             if channel.name == CHANNEL_GAME:
+                game_channel = channel
+
                 embed = discord.Embed(title=f"Game BOT on Channel #{channel.name}",
                                       color=discord.Color.blue())
 
@@ -61,6 +65,9 @@ async def on_ready():
 
                 await channel.send(embed=embed)
 
+    # Start the timers
+    timer5.start()
+
 @bot.event
 async def on_user_update(before, after):
     print(f'{before} -> {after}')
@@ -72,10 +79,19 @@ async def on_member_update(before, after):
     :param before: before Member
     :param after:  after Member
     """
-    print(f'{before} -> {after}')
 
     if before.status != after.status:
-        print(f'Member {after.name} status is now {after.status}')
+
+        if after.status == discord.Status.idle:
+            response = f'Wakey Wakey {after.name}'
+        elif after.status == discord.Status.offline:
+            response = f"Goodbye {after.name}, see you later!"
+        else:
+            response = f'Member {after.name} status is now {after.status}'
+
+        print(response)
+        await game_channel.send(response)
+
 
 @bot.event
 async def on_message(message):
@@ -173,6 +189,13 @@ async def on_command_error(ctx, error):
 
     await ctx.send(response)
 
+
+@tasks.loop(seconds=5.0)
+async def timer5():
+
+    response = "My 5 second timer"
+    print(response)
+    #await game_channel.send(response)
 
 
 @bot.command(name='test', help='Call out if you want to test something', category='Group 1')
